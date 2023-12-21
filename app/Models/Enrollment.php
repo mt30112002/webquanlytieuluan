@@ -11,7 +11,11 @@ class Enrollment extends Model
 
     protected $table = 'enrollments';
     protected $primaryKey = 'enrollment_id';
-
+    protected $fillable = [
+        'course_id',
+        'student_id',
+        // các trường khác...
+    ];
     // Mối quan hệ với bảng MonHoc (Course)
     public function monHoc()
     {

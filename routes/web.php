@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::prefix('qllophoc')->group(function () {
     Route::get('/', [lophocController::class, 'show'])->name('route.lophoc');
+    Route::get('/chitietlophoc/{id}', [lophocController::class, 'chitiet'])->name('route.lophoc.chitiet');
+    Route::post('/addStudent/{id}', [lophocController::class, 'addStudent'])->name('route.lophoc.addStudent');
 });
 
 Route::prefix('login')->middleware('authchecklogin')->group(function () {

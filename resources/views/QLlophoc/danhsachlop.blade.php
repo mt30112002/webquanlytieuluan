@@ -14,7 +14,7 @@
                     <thead>
                         <tr>
                             <th>Tên môn học</th>
-                            <th>Giảng viên hướng dẫn</th>
+                            <th>Giảng viên</th>
                             <th>Số lượng sinh viên</th>
                             <th>Chức năng</th>
                         </tr>
@@ -24,8 +24,12 @@
                             <tr>
                                 <td>{{ $monHoc->CourseName }}</td>
                                 <td>{{ $monHoc->giangVien->name }}</td>
-                                <td>{{ $monHoc->enrollments->count() }}</td>
-                                <td>Chức năng</td>
+                                <td>{{ $monHoc->enrollments->count() }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ route('route.lophoc.chitiet', ['id'=>$monHoc->id]) }}">thông tin lớp</a>
+                                    <a class="btn btn-danger">Xoá lớp</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('student_id');
             $table->timestamps();
-
+            $table->unique(['student_id', 'course_id']);
             // Khóa ngoại
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('student_id')->references('id')->on('users');

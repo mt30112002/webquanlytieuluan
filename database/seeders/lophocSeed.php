@@ -16,6 +16,8 @@ class lophocSeed extends Seeder
         DB::table('courses')->insert([
             [
                 'CourseName' => 'Phân tích thiết kế',
+                'NamHoc'=>"2023/2024",
+                'HocKy'=>"2",
                 'instructor_id' => '3',
             ]
         ]);
