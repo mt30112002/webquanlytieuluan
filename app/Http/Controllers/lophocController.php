@@ -11,7 +11,8 @@ use Illuminate\Validation\Rule;
 
 class lophocController extends Controller
 {
-    public function show(){
+    public function show()
+    {
         // Lấy danh sách môn học với thông tin giảng viên và số lượng sinh viên đăng ký
         $danhSachMonHoc = lophoc::with('giangVien')->get();
 
@@ -20,14 +21,16 @@ class lophocController extends Controller
         return view('QLlophoc.danhsachlop')->with('danhSachMonHoc', $danhSachMonHoc);
     }
 
-    public function chitiet($id){
+    public function chitiet($id)
+    {
 
         $monHoc = lophoc::with('giangVien', 'enrollments')->find($id);
         $danhSachSinhVien = $monHoc->enrollments;
 
-        return view('QLlophoc.chitietlop', ['monHoc'=>$monHoc,'danhSachSinhVien'=> $danhSachSinhVien]);
+        return view('QLlophoc.chitietlop', ['monHoc' => $monHoc, 'danhSachSinhVien' => $danhSachSinhVien]);
     }
-    public function addStudent(Request $request, $id){
+    public function addStudent(Request $request, $id)
+    {
         if ($request->filled('student_id')) {
             $studentId = $request->input('student_id');
 
@@ -46,7 +49,6 @@ class lophocController extends Controller
                     'message' => 'Sinh viên đã tham gia lớp này.',
                     'studentId' => $studentId,
                 ]);
-
             }
         }
 
@@ -55,7 +57,7 @@ class lophocController extends Controller
             $file = $request->file('file_upload');
             $this->addStudentsFromCSV($file, $id);
         }
-        return redirect()->route('route.lophoc.chitiet', ['id'=>$id]);
+        return redirect()->route('route.lophoc.chitiet', ['id' => $id]);
     }
     private function addStudentById($studentId, $course_id)
     {
@@ -69,21 +71,30 @@ class lophocController extends Controller
 
     private function addStudentsFromCSV($file, $course_id)
     {
-        $fileContents = file($file->getPathname());
-        foreach ($fileContents as $line) {
-            $data = str_getcsv($line);
-            $studentId = trim($data[0]);
-            $enrollmentExists = Enrollment::where('student_id', $studentId)
-            ->where('course_id', $course_id)
-            ->exists();
+        // Check if a file was uploaded
+        if ($file) {
+            $contents = file_get_contents($file->path());
+            $lines = explode(PHP_EOL, $contents);
 
-            // Nếu sinh viên chưa tham gia lớp, thêm vào
-            if (!$enrollmentExists) {
-                Enrollment::create([
-                    'course_id' => $course_id,
-                    'student_id' => $studentId,
-                ]);
+            foreach ($lines as $line) {
+                $data = str_getcsv($line);
+
+                // Assuming student ID is in the first column
+                $studentId = $data[0];
+
+                // Check if the student already exists in the enrollment for the given course
+                $enrollmentExists = Enrollment::where('student_id', $studentId)
+                    ->where('course_id', $course_id)
+                    ->exists();
+
+                // If the student does not exist, add them to the enrollment
+                if (!$enrollmentExists) {
+                    $this->addStudentById($studentId, $course_id);
+                }
             }
+        } else {
+            // Handle the case where no file was uploaded
+            return redirect()->route('route.lophoc.chitiet', ['id' => $course_id])->with('error', 'Không có file CSV được tải lên.');
         }
     }
 

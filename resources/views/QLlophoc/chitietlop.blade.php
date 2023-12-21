@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-body">
                     <span>Thêm sinh viên</span>
-                    <form action="{{ route('route.lophoc.addStudent', ['id' => $monHoc->id]) }}" method="POST">
+                    <form action="{{ route('route.lophoc.addStudent', ['id' => $monHoc->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="inputMssv" class="form-label">Mã số sinh viên:</label>
