@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\lophocController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,9 @@ Route::get('/', function () {
     return view('master');
 })->name("route.master");
 
+Route::prefix('qllophoc')->group(function () {
+    Route::get('/', [lophocController::class, 'show'])->name('route.lophoc');
+});
 
 Route::prefix('login')->middleware('authchecklogin')->group(function () {
     Route::get('/', [loginController::class, 'show'])->name('route.login');

@@ -57,7 +57,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
-                        <a class="collapse-item" href=" ">Quản lý lớp</a>
+                        <a class="collapse-item" href="{{ route('route.lophoc') }}">Quản lý lớp</a>
                         <a class="collapse-item" href="">Quản lý đề tài</a>
                         <a class="collapse-item" href="">Quản lý nhóm</a>
                         <a class="collapse-item" href="">Quản lý sinh viên</a>

@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class,
+            lophocSeed::class,
+            dangkySeed::class,
             // Thêm các Seeder khác nếu có
         ]);
     }
