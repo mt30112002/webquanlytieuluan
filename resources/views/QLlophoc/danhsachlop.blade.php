@@ -6,7 +6,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Danh Sách Lớp</h6>
-            <a href="#" class="btn btn-success float-right">Thêm Lớp Học</a>
+            <a href="{{ route('route.lophoc.themlop') }}" class="btn btn-success float-right">Thêm Lớp Học</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

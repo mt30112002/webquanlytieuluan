@@ -97,4 +97,8 @@ class lophocController extends Controller
             return redirect()->route('route.lophoc.chitiet', ['id' => $course_id])->with('error', 'Không có file CSV được tải lên.');
         }
     }
+
+    public function showthemlop(){
+        return view('QLlophoc.themlop');
+    }
 }
